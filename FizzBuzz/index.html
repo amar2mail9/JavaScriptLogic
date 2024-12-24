@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FizzBuzz</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="input" placeholder="Enter a number" />
+      <button id="btn">Check</button>
+      <button id="reset">Reset</button>
+      <div>
+        <span id="id"></span>
+        <span id="name"></span>
+      </div>
+      <table style="border: 1px solid black; margin-top: 10px; width: 100%">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <script>
+      let btn = document.getElementById("btn");
+      let tbody = document.getElementById("tbody");
+      let fizzArr = [];
+
+      // Event listener for "Check" button
+      btn.addEventListener("click", () => {
+        let input = document.getElementById("input").value;
+        let value = parseInt(input);
+
+        // Validate the input
+        if (isNaN(value) || value <= 0) {
+          alert("Please enter a valid number greater than 0");
+          return;
+        }
+
+        // Clear previous results
+        fizzArr = [];
+        tbody.innerHTML = "";
+
+        // Generate FizzBuzz results
+        for (let i = 1; i <= value; i++) {
+          if (i % 3 === 0 && i % 5 === 0) {
+            fizzArr.push({ name: "FizzBuzz", id: i });
+          } else if (i % 3 === 0) {
+            fizzArr.push({ name: "Fizz", id: i });
+          } else if (i % 5 === 0) {
+            fizzArr.push({ name: "Buzz", id: i });
+          }
+        }
+
+        // Populate the table
+        fizzArr.forEach(({ name, id }) => {
+          let row = document.createElement("tr");
+          let idCell = document.createElement("td");
+          idCell.textContent = id;
+
+          let nameCell = document.createElement("td");
+          nameCell.textContent = name;
+
+          row.appendChild(idCell);
+          row.appendChild(nameCell);
+
+          tbody.appendChild(row);
+        });
+      });
+
+      // Event listener for "Reset" button
+      document.getElementById("reset").addEventListener("click", () => {
+        document.getElementById("input").value = ""; // Clear input field
+        fizzArr = []; // Reset fizzArr
+        tbody.innerHTML = ""; // Clear table body
+      });
+    </script>
+  </body>
+</html>
